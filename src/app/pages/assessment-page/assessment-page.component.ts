@@ -31,7 +31,7 @@ export class AssessmentPageComponent {
   interval!: any;
   activeTab = '';
   ngbNav!: any;
-  totalTime =  10;
+  totalTime =  300;
   numberOfQuestion!: Array<number>;
   currentQuestion = 1;
   assessmentStart = false;
@@ -63,7 +63,7 @@ export class AssessmentPageComponent {
   }
   transform(value: number): string {
     const minutes: number = Math.floor(value / 60);
-    return this.time < 10 || this.time % 60 < 10
+    return this.time < 300 || this.time % 60 < 300
       ? minutes + ':' + '0' + (value - minutes * 60)
       : minutes + ':' + (value - minutes * 60);
   }

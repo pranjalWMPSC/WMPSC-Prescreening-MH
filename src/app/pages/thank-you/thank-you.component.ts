@@ -11,6 +11,5 @@ import { Router } from '@angular/router';
 export class ThankYouComponent {
 
   constructor(private _router: Router){}
-
   
 }

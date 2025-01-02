@@ -27,5 +27,5 @@ export const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   { path: 'thankYou', component: ThankYouComponent },
-  { path: '', redirectTo: '/candidateList', pathMatch: 'full' },
+  { path: '*', redirectTo: '/assessment', pathMatch: 'full' },
 ];
