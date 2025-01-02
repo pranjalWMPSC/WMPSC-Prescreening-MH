@@ -65,6 +65,7 @@ export class AddCandidateComponent implements OnInit {
     this.candidateData.tpUser = localStorage.getItem('email') || "null";
     if(this.candidateData.tpUser == "null"){
       this._toastr.error("Internal Server Error");
+      this.loader = !this.loader;
     } else {
       this._candidateApi.checkCandidate(this.candidateData.aadhar).subscribe(
         (response) => {
@@ -72,14 +73,16 @@ export class AddCandidateComponent implements OnInit {
           let candTempData = temp.result.documents;
           if (candTempData.length > 0) {
             this._toastr.error('Aadhar already exist');
+            this.loader = !this.loader;
           } else {
             this._candidateApi.candidateData = this.candidateData;
             this._router.navigate(['assessmentStart']);
-            this._toastr.success('Dosent exist');
+            this.loader = !this.loader;
           }
         },
         (error) => {
-          this._toastr.error(error.error.text);
+          this._toastr.error("Internal Server Error");
+          this.loader = !this.loader;
         }
       );
     }
