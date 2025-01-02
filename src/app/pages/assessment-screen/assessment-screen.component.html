@@ -1,0 +1,73 @@
+<div class="container" style="display: flex;
+justify-content: center;" [ngStyle]="!noAssessment ? {'display' : 'flex'} : {'display' : 'none'}">
+  <div class="card" style="width: 480px; margin-top: 20px; padding: 20px;">
+    <form class="needs-validation" novalidate style="width: 100%;" [formGroup]="loginForm">
+      <div class="form-row">
+        <div>
+          <label for="validationCustomUsername">Email Id</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+            </div>
+            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Email Id"
+              aria-describedby="inputGroupPrepend" formControlName="emailId" [(ngModel)]="emailId" name="emailId"
+              required>
+          </div>
+
+          <div class="badge bg-danger" role="alert" *ngIf="loginForm.get('emailId')?.invalid && loginForm.get('emailId')?.touched">
+            <div  *ngIf="loginForm.get('emailId')?.errors!['required']">Email is required.</div>
+            @if (loginForm.get('emailId')!.errors!['email']) {
+              <div>Invalid email format.</div>
+          }
+          </div>
+        </div>
+        <div>
+          <label for="validationCustom02">Password</label>
+          <input type="password" class="form-control" id="validationCustom02" placeholder="Password"
+            formControlName="password" [(ngModel)]="password" name="password" required>
+        </div>
+        <div class="badge bg-danger" role="alert" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <div  *ngIf="loginForm.get('password')?.errors!['required']">Password is required.</div>
+        </div>
+      </div>
+      <!-- <div class="form-row">
+        <div >
+          <label for="validationCustom03">Job Role</label>
+          <input type="text" class="form-control" id="validationCustom03" [value]="jobRole" placeholder="City" required disabled>
+          <div class="invalid-feedback">
+            Please provide a valid city.
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label style="color: rgb(255, 105, 105);" for="">* Please check the details above and then start assessment. </label>
+      </div> -->
+    </form>
+    <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
+      <button class="btn btn-secondary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container" style="display: flex;
+justify-content: center; text-align: center;" [ngStyle]="!noAssessment ? {'display' : 'none'} : {'display' : 'flex'}">
+  <div class="card" [ngStyle]="!expiredLink ? {'display': 'block'} : {'display': 'none'}">
+    <h2>Some error with the link.</h2>
+    <h3>Please contact <a href="">wmpsc&#64;wmpsc.in</a></h3>
+  </div>
+
+  <div class="card" [ngStyle]="!expiredLink ? {'display': 'none'} : {'display': 'block'}">
+    <h2>The link has expired.</h2>
+    <h3>Please contact <a href="">wmpsc&#64;wmpsc.in</a></h3>
+  </div>
+</div> -->
+
+
+<!-- <label for="">Email Id</label>
+<input type="text" [(ngModel)]="emailId">
+
+<label for="">Password</label>
+<input type="password" name="" id="" [(ngModel)]="password">
+<div>
+  <button class="btn btn-secondary" type="submit" (click)="submit()">Login</button>
+</div> -->

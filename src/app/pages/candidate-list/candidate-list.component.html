@@ -1,0 +1,94 @@
+@if (candidateList != undefined) {
+  @if(candidateList.length > 0){
+    <div class="container">
+      <table class="table table-striped rounded border border-primary shadow p-3 mb-5 bg-white">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Aadhar Number</th>
+            <th scope="col">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of candidateList; track $index) {
+            <tr>
+              <th scope="row">{{$index + 1}}</th>
+              <td scope="row">{{item.firstName}}</td>
+              <td scope="row">{{item.lastName}}</td>
+              <td scope="row">{{item.aadhar}}</td>
+              <td scope="row"><span class="badge" [ngClass]="{'bg-success' : item.result === 'Pass', 'bg-danger' : item.result === 'Fail'}">{{item.result}}</span></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (true) {
+        <nav aria-label="Page navigation example">
+          <ul class="pagination d-flex justify-content-center">
+            @if(pageNumber > 1){
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            }
+            @for (item of [].constructor(totalCount); track $index) {
+              <li class="page-item"><a class="page-link" href="#">{{$index + 1}}</a></li>
+            }
+            @if(pageNumber != totalCount){
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+      }
+
+    </div>
+  } @else {
+    <div class="container">
+      <h2>No Candidate Assessed Till Now</h2>
+    </div>
+  }
+
+
+}
+
+
+@if (candidateList === undefined) {
+  <div class="spinner-background">
+    <div class="spinner-wrapper">
+      <div class="spinner">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <svg class="svg-filter">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="
+                                                         1 0 0 0 0
+                                                         0 1 0 0 0
+                                                         0 0 1 0 0
+                                                         0 0 0 50 -16
+                                                         " result="goo" />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
+
+  </div>
+}
+

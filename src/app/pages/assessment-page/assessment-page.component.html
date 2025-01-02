@@ -1,0 +1,92 @@
+<div class="container" [ngStyle]="!assessmentStart ? {'display': 'flex'} : {'display' : 'none'}">
+  <div class="card">
+    <div class="form-group">
+      <label for="">Assessment Job Role : </label>
+      <label for="">{{candidateData.jobRole}}</label>
+    </div>
+
+    <div class="form-group">
+      <label for="">Date : </label>
+      <label for="">{{todayDate | date}}</label>
+    </div>
+
+    <div class="form-group">
+      <label for="">No. Of Questions : </label>
+      <label for="">20</label>
+    </div>
+
+    <div class="form-group">
+      <label for="">Duration Of Assessment : </label>
+      <label for="">25 min</label>
+    </div>
+
+    <div class="form-group">
+      <label for="">Candidate Name : </label>
+      <label for="">{{candidateData.firstName}} {{candidateData.lastName}}</label>
+    </div>
+
+    <div class="form-group">
+      <label for="">Duration Of Assessment : </label>
+      <label for="">25 min</label>
+    </div>
+
+    <div class="form-group button-group">
+      <button class="btn btn-primary" (click)='startTimer()'>Start</button>
+    </div>
+  </div>
+</div>
+
+<div class="container" [ngStyle]="!assessmentStart ? {'display': 'none'} : {'display' : 'flex'}">
+  <div class="card">
+    <div class="form-group">
+      Time:
+      <div class="progress" style="width: 200px; height: 40px; font-size: 24px; font-weight: bolder; text-align: center; color: black; position: inherit;">
+        <div [ngClass]="{'' : percentage <24 && percentage > 0,'bg-success' : percentage <49 && percentage >= 24 , 'bg-warning' : percentage <84 && percentage >= 50, 'bg-danger': percentage <= 100 && percentage > 84}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  aria-valuenow="time" aria-valuemin="0" aria-valuemax="900" [ngStyle]="{'width': percentage + '%'}"  ></div>
+        <span style="position :absolute; margin-left: 70px;">{{display}}</span>
+      </div>
+    </div>
+
+    <!-- <div class="question-group">
+        <span class="card-new" *ngFor="let i of numberOfQuestion" [ngStyle]="question[i].answered === true ? {'background-color': 'rgb(71, 184, 71)'} : question[i].answered === false ? {'background-color': 'rgb(255, 79, 79)'} : { 'background-color': 'rgb(189, 189, 189)'}">{{i + 1}}</span>
+    </div> -->
+  </div>
+
+  <span *ngFor="let question of selectedQuestion ; let i = index">
+  <div class="card" [ngStyle]="i+1 === currentQuestion ? {'display': 'block'} : {'display': 'none'}">
+      <div class="form-group-row">
+        {{question.question}}
+      </div>
+
+      <!-- <div *ngIf = "question.image != ''" class="queImage">
+        <img [src]="question.image" alt="" height="200px" width="300px">
+        <img alt="">
+      </div> -->
+
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" (click)="answerMarking(question.questionId, question.optionA, 'A')">
+          <label class="form-check-label" for="inlineRadio3">{{question.optionA}}</label>
+        </div>  <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" (click)="answerMarking(question.questionId, question.optionB, 'B')">
+          <label class="form-check-label" for="inlineRadio3">{{question.optionB}}</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" (click)="answerMarking(question.questionId, question.optionC, 'C')">
+          <label class="form-check-label" for="inlineRadio3">{{question.optionC}}</label>
+        </div>  <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" (click)="answerMarking(question.questionId, question.optionD, 'D')">
+          <label class="form-check-label" for="inlineRadio3">{{question.optionD}}</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-warning" (click)="prevQuestion(i+1)" [disabled]="i === 0">Previous</button>
+        <button class="btn btn-primary" (click)="nextQuestion(i+1)" [ngStyle]="i === selectedQuestion.length - 1 ? {'display' : 'none'} : {'display': 'block'}" [disabled]="i === 14">Next</button>
+        <button class="btn btn-primary" (click)="submit()" [ngStyle]="i === selectedQuestion.length - 1 ? {'display' : 'none'} : {'display': 'block'}" >Submit</button>
+      </div>
+    </div>
+  </span>
+</div>

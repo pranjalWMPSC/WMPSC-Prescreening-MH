@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  padding: 2%;
+  margin: 2%;
+}
+
+

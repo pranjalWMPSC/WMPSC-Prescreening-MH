@@ -1,0 +1,103 @@
+<!-- <label for="">First Name</label>
+<input type="text">
+<br/>
+<label for="">Last Name</label>
+<input type="text" name="" id="">
+<br/>
+<label for="">Aadhar Number</label>
+<input type="text">
+<br/>
+<label for="">Mobile Number</label>
+<input type="text">
+<br/>
+<label for="">Email</label>
+<input type="text">
+
+<br/>
+<button>Save</button> -->
+
+
+<div class="container" style="display: flex;
+justify-content: center;">
+  <div class="card" style="width: 480px; margin-top: 20px; padding: 20px;">
+    <form class="needs-validation" novalidate style="width: 100%;" [formGroup]="candidateForm">
+      <div class="form-row">
+        <div>
+          <label for="validationCustomUsername">Email Id</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+            </div>
+            <input type="email" class="form-control" id="validationCustomUsername" placeholder="Email Id"
+              aria-describedby="inputGroupPrepend" formControlName="emailId" [(ngModel)]="candidateData.email"
+              name="email" required>
+          </div>
+          <!-- <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('emailId')?.invalid && candidateForm.get('emailId')?.touched">
+            <div  *ngIf="candidateForm.get('emailId')?.errors!['required']">Email Id is required.</div>
+          </div> -->
+        </div>
+
+        <div>
+          <label for="validationCustom02">First Name</label>
+          <input type="text" class="form-control" id="validationCustom02" placeholder="First Name"
+            [(ngModel)]="candidateData.firstName" formControlName="firstName" required>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('firstName')?.invalid && candidateForm.get('firstName')?.touched">
+          <div  *ngIf="candidateForm.get('firstName')?.errors!['required']">First Name is required.</div>
+        </div>
+
+        <div>
+          <label for="validationCustom02">Last Name</label>
+          <input type="text" class="form-control" id="validationCustom02" placeholder="Last Name"
+            [(ngModel)]="candidateData.lastName"  formControlName="lastName" required>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('lastName')?.invalid && candidateForm.get('lastName')?.touched">
+          <div  *ngIf="candidateForm.get('lastName')?.errors!['required']">Last Name is required.</div>
+        </div>
+
+        <div>
+          <label for="validationCustom02">Aadhar Number</label>
+          <input [ngStyle]="(candidateForm.get('aadhar')?.invalid && !candidateForm.get('aadhar')?.touched) ? {'border': '2px red solid'}: {'border': '2px green solid'}" type="text" class="form-control" id="validationCustom02" placeholder="Aadhar"
+            [(ngModel)]="candidateData.aadhar" formControlName="aadhar" required>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('aadhar')?.invalid && candidateForm.get('aadhar')?.touched">
+          <div  *ngIf="candidateForm.get('aadhar')?.errors!['required']">Aadhar is required.</div>
+          <div  *ngIf="candidateForm.get('aadhar')?.errors!['pattern']">Aadhar is invalid.</div>
+        </div>
+
+        <div>
+          <label for="validationCustom02">Mobile Number</label>
+          <input type="tel" class="form-control" id="validationCustom02" placeholder="Mobile Number"
+            [(ngModel)]="candidateData.mobile" formControlName="mobile" required>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('mobile')?.invalid && candidateForm.get('mobile')?.touched">
+          <div  *ngIf="candidateForm.get('mobile')?.errors!['required']">Mobile is required.</div>
+        </div>
+
+        <div>
+          <label for="">Job Role</label>
+          <select class="form-control" id="inlineFormCustomSelectPref" formControlName="jobrole"
+            [(ngModel)]="candidateData.jobRole">
+            <option value="Water Pump Operator">Water Pump Operator</option>
+            <option value="Plumber General">Plumber General</option>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="form-row">
+        <div >
+          <label for="validationCustom03">Job Role</label>
+          <input type="text" class="form-control" id="validationCustom03" [value]="jobRole" placeholder="City" required disabled>
+          <div class="invalid-feedback">
+            Please provide a valid city.
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label style="color: rgb(255, 105, 105);" for="">* Please check the details above and then start assessment. </label>
+      </div> -->
+    </form>
+    <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
+      <button class="btn btn-secondary" type="submit" (click)="submit()" [disabled]="!candidateForm.valid">Start Assessment</button>
+    </div>
+  </div>
+</div>
