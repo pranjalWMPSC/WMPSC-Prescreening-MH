@@ -1,6 +1,3 @@
-
-
-
 <div class="container" style="display: flex;
 justify-content: center;">
   <div class="card" style="width: 480px; margin-top: 20px; padding: 20px;">
@@ -26,27 +23,32 @@ justify-content: center;">
           <input type="text" class="form-control" id="validationCustom02" placeholder="First Name"
             [(ngModel)]="candidateData.firstName" formControlName="firstName" required>
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('firstName')?.invalid && candidateForm.get('firstName')?.touched">
-          <div  *ngIf="candidateForm.get('firstName')?.errors!['required']">First Name is required.</div>
+        <div class="alert alert-danger" role="alert"
+          *ngIf="candidateForm.get('firstName')?.invalid && candidateForm.get('firstName')?.touched">
+          <div *ngIf="candidateForm.get('firstName')?.errors!['required']">First Name is required.</div>
         </div>
 
         <div>
           <label for="validationCustom02">Last Name</label>
           <input type="text" class="form-control" id="validationCustom02" placeholder="Last Name"
-            [(ngModel)]="candidateData.lastName"  formControlName="lastName" required>
+            [(ngModel)]="candidateData.lastName" formControlName="lastName" required>
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('lastName')?.invalid && candidateForm.get('lastName')?.touched">
-          <div  *ngIf="candidateForm.get('lastName')?.errors!['required']">Last Name is required.</div>
+        <div class="alert alert-danger" role="alert"
+          *ngIf="candidateForm.get('lastName')?.invalid && candidateForm.get('lastName')?.touched">
+          <div *ngIf="candidateForm.get('lastName')?.errors!['required']">Last Name is required.</div>
         </div>
 
         <div>
           <label for="validationCustom02">Aadhar Number</label>
-          <input [ngStyle]="(candidateForm.get('aadhar')?.invalid && !candidateForm.get('aadhar')?.touched) ? {'border': '2px red solid'}: {'border': '2px green solid'}" type="text" class="form-control" id="validationCustom02" placeholder="Aadhar"
+          <input
+            [ngStyle]="(candidateForm.get('aadhar')?.invalid && !candidateForm.get('aadhar')?.touched) ? {'border': '2px red solid'}: {'border': '2px green solid'}"
+            type="text" class="form-control" id="validationCustom02" placeholder="Aadhar"
             [(ngModel)]="candidateData.aadhar" formControlName="aadhar" required>
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('aadhar')?.invalid && candidateForm.get('aadhar')?.touched">
-          <div  *ngIf="candidateForm.get('aadhar')?.errors!['required']">Aadhar is required.</div>
-          <div  *ngIf="candidateForm.get('aadhar')?.errors!['pattern']">Aadhar is invalid.</div>
+        <div class="alert alert-danger" role="alert"
+          *ngIf="candidateForm.get('aadhar')?.invalid && candidateForm.get('aadhar')?.touched">
+          <div *ngIf="candidateForm.get('aadhar')?.errors!['required']">Aadhar is required.</div>
+          <div *ngIf="candidateForm.get('aadhar')?.errors!['pattern']">Aadhar is invalid.</div>
         </div>
 
         <div>
@@ -54,8 +56,9 @@ justify-content: center;">
           <input type="tel" class="form-control" id="validationCustom02" placeholder="Mobile Number"
             [(ngModel)]="candidateData.mobile" formControlName="mobile" required>
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="candidateForm.get('mobile')?.invalid && candidateForm.get('mobile')?.touched">
-          <div  *ngIf="candidateForm.get('mobile')?.errors!['required']">Mobile is required.</div>
+        <div class="alert alert-danger" role="alert"
+          *ngIf="candidateForm.get('mobile')?.invalid && candidateForm.get('mobile')?.touched">
+          <div *ngIf="candidateForm.get('mobile')?.errors!['required']">Mobile is required.</div>
         </div>
 
         <div>
@@ -81,7 +84,13 @@ justify-content: center;">
       </div> -->
     </form>
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
-      <button class="btn btn-secondary" type="submit" (click)="submit()" [disabled]="!candidateForm.valid">Start Assessment</button>
+      <button class="btn btn-secondary" type="submit" (click)="submit()" [disabled]="!candidateForm.valid">
+        @if(loader){
+          <div class="loader"></div>
+        } @else {
+          Start Assessment
+        }
+      </button>
     </div>
   </div>
 </div>

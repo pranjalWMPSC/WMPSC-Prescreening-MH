@@ -7,7 +7,13 @@ import { CandidateListComponent } from './pages/candidate-list/candidate-list.co
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: 'assessment', component: AssessmentScreenComponent },
+  {
+    path: 'assessment',
+    loadComponent: () =>
+      import('./pages/assessment-screen/assessment-screen.component').then(
+        (m) => m.AssessmentScreenComponent
+      ),
+  },
   { path: 'assessmentStart', component: AssessmentPageComponent },
   { path: 'addCandidate', component: AddCandidateComponent },
   {
@@ -27,5 +33,5 @@ export const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   { path: 'thankYou', component: ThankYouComponent },
-  { path: '*', redirectTo: '/assessment', pathMatch: 'full' },
+  { path: '**', redirectTo: '/assessment', pathMatch: 'full' },
 ];

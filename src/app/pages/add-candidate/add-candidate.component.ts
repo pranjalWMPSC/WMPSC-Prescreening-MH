@@ -39,6 +39,8 @@ export class AddCandidateComponent implements OnInit {
     emailId: new FormControl('', [Validators.email]),
   });
 
+  loader = false;
+
   ngOnInit(): void {
     this.candidateForm;
   }
@@ -59,6 +61,7 @@ export class AddCandidateComponent implements OnInit {
   }
 
   submit() {
+    this.loader = !this.loader;
     this.candidateData.tpUser = localStorage.getItem('email') || "null";
     if(this.candidateData.tpUser == "null"){
       this._toastr.error("Internal Server Error");

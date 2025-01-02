@@ -53,7 +53,6 @@ export class AssessmentPageComponent {
       .fill(15)
       .map((x, i) => i);
     this.assessmentStart = true;
-    console.log('=====>');
     this.interval = setInterval(() => {
       this.time++;
       this.percentage = (this.time / this.totalTime) * 100;
