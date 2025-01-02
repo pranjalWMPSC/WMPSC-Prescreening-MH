@@ -30,44 +30,16 @@ justify-content: center;" [ngStyle]="!noAssessment ? {'display' : 'flex'} : {'di
           <div  *ngIf="loginForm.get('password')?.errors!['required']">Password is required.</div>
         </div>
       </div>
-      <!-- <div class="form-row">
-        <div >
-          <label for="validationCustom03">Job Role</label>
-          <input type="text" class="form-control" id="validationCustom03" [value]="jobRole" placeholder="City" required disabled>
-          <div class="invalid-feedback">
-            Please provide a valid city.
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <label style="color: rgb(255, 105, 105);" for="">* Please check the details above and then start assessment. </label>
-      </div> -->
+
     </form>
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
-      <button class="btn btn-secondary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+      <button class="btn btn-secondary" type="submit" (click)="login()" [disabled]="!loginForm.valid || loader">
+        @if (loader) {
+          <div class="loader"></div>
+        } @else {
+          Login
+        }
+      </button>
     </div>
   </div>
 </div>
-
-<!-- <div class="container" style="display: flex;
-justify-content: center; text-align: center;" [ngStyle]="!noAssessment ? {'display' : 'none'} : {'display' : 'flex'}">
-  <div class="card" [ngStyle]="!expiredLink ? {'display': 'block'} : {'display': 'none'}">
-    <h2>Some error with the link.</h2>
-    <h3>Please contact <a href="">wmpsc&#64;wmpsc.in</a></h3>
-  </div>
-
-  <div class="card" [ngStyle]="!expiredLink ? {'display': 'none'} : {'display': 'block'}">
-    <h2>The link has expired.</h2>
-    <h3>Please contact <a href="">wmpsc&#64;wmpsc.in</a></h3>
-  </div>
-</div> -->
-
-
-<!-- <label for="">Email Id</label>
-<input type="text" [(ngModel)]="emailId">
-
-<label for="">Password</label>
-<input type="password" name="" id="" [(ngModel)]="password">
-<div>
-  <button class="btn btn-secondary" type="submit" (click)="submit()">Login</button>
-</div> -->

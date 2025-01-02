@@ -36,6 +36,7 @@ export class AssessmentScreenComponent implements OnInit {
   expiredLink = false;
   emailId!: string;
   password!: string;
+  loader = false;
 
   noAssessment = false;
   loginForm = new FormGroup({
@@ -44,30 +45,7 @@ export class AssessmentScreenComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // console.log(this._cookieServices.get('id_token'));
-    // console.log('Console working');
-    // this.activateRoute.queryParams.forEach((params: Params) => {
-    //   // this.firstName = params['firstName'];
-    //   // this.lastName = params['lastName'];
-    //   // this.emailId = params['emailId'];
-    //   // this.jobRole = params['jobRole'];
-    //   // this.time = params['time'];
-    //   this.code = params['code'];
-    //   // this.code = this.code.replace(/^"(.+(?="$))"$/, '$1');
-    //   // console.log(this.code);
-    //   // console.log("BJuLIVn1vhAVcjqknThVpoXS2ezf9Edvy3NtCkq0iXB3SiDFdSPpjMp/G9YhE5sVi0dg8xSmhAOhvJnDyETNN3FD7PZ1UheAyjewZ4/kGMIAyQq363v904pBnCHfSL1kr4UdMFrk1zMUJUB0aR5XNIZo2RZ1dkhzyUMysJkPQV1oL0uPH5fp1os6tOLHt30AOXQgkV9KcH5yBjjQToud19tQHVbRqr2d6wX97Cx0L55BO1RZPAL8TBZPzPHL48uIf6ATkDcxL4tlPOPpuBXRKQGzCHQVfBvjI7d04c7wDyIHacve+qKk2smzSymosps46vfhD8aYfckjElsvlgzmJFXDKswRYQQ0pJFEYDlJoBkJajaBP7NqomS2kKw2DB4CBsMUTcvClACIQO3E4TD72W9MwGUcKVR1nVSFsnoorYoU6DVKZ5CJwLgzC+eSa+BJkfAQTNeb1PBGFMo9bnNAyhMvpNlv3BNckYQ5cLSliLt9jvkI8T91rztphpl7Nt1oB5g/tScxzNpQ03Lid+TSAH3sgbvuBN3ufc6jNcufljN7BoQ7nJsA604KkxB0VXoMm+OTY1TdHY7he1tBxpykMQ==");
-    // });
-
-    // // if (this.firstName === undefined || this.lastName === undefined || this.emailId === undefined || this.jobRole === undefined){
-    // //   this.noAssessment = true;
-    // // }
-    // if (this.code === undefined) {
-    //   this.noAssessment = true;
-    // } else {
-    //   this.decrypt();
-    // }
     this.noAssessment = false;
-
     this.loginForm;
   }
 
@@ -76,40 +54,28 @@ export class AssessmentScreenComponent implements OnInit {
   }
 
   login() {
+    this.loader = !this.loader;
+
     this._tpApi.loginTP(this.emailId, this.password).subscribe(
       (response) => {
         let temp = response;
-
-        this._tpApi.tpEmail = temp.result.document.email;
-
-        console.log(response);
-        this._authService.signIn(this._tpApi.tpEmail);
-        this._toastr.success('You are logged in');
-        this.router.navigate(['candidateList']);
-        this._tpApi.currentNav = "candidateList";
+        console.log(temp.result.document);
+        if(temp.result.document == null){
+          this._toastr.error('Email Id or Password is incorrect');
+          this.loader = !this.loader;
+        } else {
+          this._tpApi.tpEmail = temp.result.document.email;
+          this._authService.signIn(this._tpApi.tpEmail);
+          this._toastr.success('You are logged in');
+          this.router.navigate(['candidateList']);
+          this._tpApi.currentNav = "candidateList";
+        }
       },
       (error) => {
+        this.loader =!this.loader;
         this._toastr.error(error.error.text);
-        console.log(error.error.text);
       }
     );
 
   }
-
-  // decrypt() {
-  //   console.log(this.code);
-  //   this._apiService.decrypt(this.code).subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //       this.firstName = response.result.firstName;
-  //       this.lastName = response.result.lastName;
-  //       this.emailId = response.result.emailId;
-  //       this.jobRole = response.result.jobRole;
-  //       this._apiService.captureCode = this.code;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
 }
