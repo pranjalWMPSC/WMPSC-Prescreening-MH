@@ -31,19 +31,18 @@ export class AssessmentPageComponent {
   interval!: any;
   activeTab = '';
   ngbNav!: any;
-  totalTime =  300;
+  totalTime = 300;
   numberOfQuestion!: Array<number>;
   currentQuestion = 1;
   assessmentStart = false;
   todayDate = Date();
-  randomQuestionIds: Array<number> = [] ;
+  randomQuestionIds: Array<number> = [];
 
   waterPumpQuestion = waterPump;
   selectedQuestion: Array<any> = [];
   candidateData!: ICandidate;
 
-
-  ngOnInit():void{
+  ngOnInit(): void {
     this.candidateData = this._candidateApi.candidateData;
     this.createQuestion();
   }
@@ -73,7 +72,9 @@ export class AssessmentPageComponent {
 
   nextQuestion(questionId: number) {
     this.currentQuestion = questionId + 1;
-    let findId = this.waterPumpQuestion.find((x) => x.questionNo === questionId);
+    let findId = this.waterPumpQuestion.find(
+      (x) => x.questionNo === questionId
+    );
     // // findId?.answered === null ? findId?.answer === null ? this.question[questionId].answered = false : this.question[questionId].answered === true : this.question[questionId].answered === true;
     // // this.question[questionId - 1].answered = true;
     // console.log(this.selectedQuestion);
@@ -81,74 +82,69 @@ export class AssessmentPageComponent {
 
   prevQuestion(questionId: number) {
     this.currentQuestion = questionId - 1;
-    let findId = this.waterPumpQuestion.find((x) => x.questionNo === questionId);
+    let findId = this.waterPumpQuestion.find(
+      (x) => x.questionNo === questionId
+    );
     console.log(findId);
   }
 
   answerMarking(queId: number, answer: string, option: string) {
-    let temp = this.selectedQuestion.findIndex(x=> x.questionId === queId);
+    let temp = this.selectedQuestion.findIndex((x) => x.questionId === queId);
     this.selectedQuestion[temp].answer = answer;
     this.selectedQuestion[temp].optionChoosen = option;
-    let answerQuestion = waterPump.find(x=>x.questionNo === queId);
-    if(answerQuestion?.Answer === option){
+    let answerQuestion = waterPump.find((x) => x.questionNo === queId);
+    if (answerQuestion?.Answer === option) {
       this.selectedQuestion[temp].correctOrNot = 'Correct';
     } else {
       this.selectedQuestion[temp].correctOrNot = 'Incorrect';
     }
-
-
   }
 
   submit() {
-    // this._apiService.addEncryption(this.question).subscribe(
-    //   (response) => {
-    //     console.log("Added");
-    //   }, (error) => {
-    //     console.log("Error");
-    //   }
-    // )
-    // console.log(this.question);
-    // this.router.navigate(['thankYou'])
     let totalMarks = this.selectedQuestion.length * 2.5;
     let correctAnswers = 0;
     let obtainedMarks = 0;
-    let verdict = "Fail";
-    this.selectedQuestion.forEach(element => {
-      if(element.correctOrNot === 'Correct'){
-        correctAnswers++
+    let verdict = 'Fail';
+    this.selectedQuestion.forEach((element) => {
+      if (element.correctOrNot === 'Correct') {
+        correctAnswers++;
       }
     });
-    obtainedMarks = correctAnswers *2.5;
-    let passFailpercent = (obtainedMarks/totalMarks) *100;
-    if(passFailpercent > 60){
-      verdict = "Pass";
+    obtainedMarks = correctAnswers * 2.5;
+    let passFailpercent = (obtainedMarks / totalMarks) * 100;
+    if (passFailpercent > 60) {
+      verdict = 'Pass';
     }
 
     this._candidateApi.candidateData.answers = this.selectedQuestion;
     this._candidateApi.candidateData.marks = obtainedMarks;
     this._candidateApi.candidateData.result = verdict;
     this._candidateApi.candidateData.createdAt = Date();
-    this._candidateApi.addCandidate(this._candidateApi.candidateData).subscribe((response) => {
-      this._toastr.warning("Thank You! Your assessment has been submitted");
-      this.router.navigate(['thankYou']);
-
-    }, (error) => {
-      console.log(error.error.text);
-    })
+    this._candidateApi.addCandidate(this._candidateApi.candidateData).subscribe(
+      (response) => {
+        clearInterval(this.interval);
+        this._toastr.warning('Thank You! Your assessment has been submitted');
+        this.router.navigate(['thankYou']);
+      },
+      (error) => {
+        console.log(error.error.text);
+        this._toastr.error("Internal Server Error");
+      }
+    );
   }
 
-  createQuestion(){
-    while(this.randomQuestionIds.length < 25) {
+  createQuestion() {
+    while (this.randomQuestionIds.length < 25) {
       let temp = Math.floor(Math.random() * (waterPump.length - 1 + 1) + 1);
-      let res = this.randomQuestionIds.findIndex(x => x === temp);
-      if(res === -1){
+      let res = this.randomQuestionIds.findIndex((x) => x === temp);
+      if (res === -1) {
         this.randomQuestionIds.push(temp);
       }
     }
     console.log(this.randomQuestionIds);
 
-    this.randomQuestionIds.forEach(element => {
-      let temp = this.waterPumpQuestion.find(x => x.questionNo === element);
+    this.randomQuestionIds.forEach((element) => {
+      let temp = this.waterPumpQuestion.find((x) => x.questionNo === element);
       let dataMap = {
         questionId: temp?.questionNo,
         question: temp?.Question,
@@ -158,11 +154,10 @@ export class AssessmentPageComponent {
         optionD: temp?.option_d,
         answer: '',
         optionChoosen: '',
-        correctOrNot: ''
-      }
+        correctOrNot: '',
+      };
       this.selectedQuestion.push(dataMap);
     });
     console.log(this.selectedQuestion);
   }
-
 }

@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { AssessmentScreenComponent } from './pages/assessment-screen/assessment-screen.component';
-import { AssessmentPageComponent } from './pages/assessment-page/assessment-page.component';
-import { ThankYouComponent } from './pages/thank-you/thank-you.component';
-import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
-import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -13,15 +8,31 @@ export const routes: Routes = [
       import('./pages/assessment-screen/assessment-screen.component').then(
         (m) => m.AssessmentScreenComponent
       ),
+      pathMatch: 'full'
   },
-  { path: 'assessmentStart', component: AssessmentPageComponent },
-  { path: 'addCandidate', component: AddCandidateComponent },
+  {
+    path: 'assessmentStart',
+    loadComponent: () =>
+      import('./pages/assessment-page/assessment-page.component').then(
+        (m) => m.AssessmentPageComponent
+      ),
+      pathMatch: 'full'
+  },
+  {
+    path: 'addCandidate',
+    loadComponent: () =>
+      import('./pages/add-candidate/add-candidate.component').then(
+        (m) => m.AddCandidateComponent
+      ),
+      pathMatch: 'full'
+  },
   {
     path: 'candidateList',
     loadComponent: () =>
       import('./pages/candidate-list/candidate-list.component').then(
         (m) => m.CandidateListComponent
       ),
+    pathMatch: 'full',
     canActivate: [authGuard],
   },
   // {
@@ -32,6 +43,13 @@ export const routes: Routes = [
   //     ),
   //   canActivate: [authGuard],
   // },
-  { path: 'thankYou', component: ThankYouComponent },
+  {
+    path: 'thankYou',
+    loadComponent: () =>
+      import('./pages/thank-you/thank-you.component').then(
+        (m) => m.ThankYouComponent
+      ),
+    pathMatch: 'full'
+  },
   { path: '**', redirectTo: '/assessment', pathMatch: 'full' },
 ];
