@@ -24,7 +24,7 @@ export class AuthService {
           }
         }
       } catch (e) {
-        console.log("Error in localstorage");
+        console.log("Error in localstorage: " + e);
       }
     }
 
