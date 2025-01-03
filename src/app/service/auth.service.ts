@@ -14,13 +14,17 @@ export class AuthService {
     }
 
     autoSignIn() {
-      if (typeof window !== 'undefined') {
-        if (localStorage.getItem('email')) {
-            this.isAuth.next(true);
-            this.router.navigate(['/candidateList']);
-        } else {
-          this.router.navigate(['/assessment']);
+      try{
+        if (typeof window !== 'undefined') {
+          if (localStorage.getItem('email')) {
+              this.isAuth.next(true);
+              this.router.navigate(['/candidateList']);
+          } else {
+            this.router.navigate(['/assessment']);
+          }
         }
+      } catch (e) {
+        console.log("Error in localstorage");
       }
     }
 
