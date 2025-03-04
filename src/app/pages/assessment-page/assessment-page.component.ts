@@ -10,11 +10,12 @@ import { waterPump } from '../../database/waterPump';
 import { CandidateApiService } from '../../service/candidate-api.service';
 import { ICandidate } from '../../models/ICandidate';
 import { ToastrService } from 'ngx-toastr';
+import { plumberGeneral } from '../../database/plumberGeneral';
 
 @Component({
   selector: 'app-assessment-page',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NgbModule],
+  imports: [CommonModule, NgbModule],
   templateUrl: './assessment-page.component.html',
   styleUrl: './assessment-page.component.css',
 })
@@ -31,7 +32,7 @@ export class AssessmentPageComponent {
   interval!: any;
   activeTab = '';
   ngbNav!: any;
-  totalTime = 300;
+  totalTime = 600;
   numberOfQuestion!: Array<number>;
   currentQuestion = 1;
   assessmentStart = false;
@@ -39,6 +40,7 @@ export class AssessmentPageComponent {
   randomQuestionIds: Array<number> = [];
 
   waterPumpQuestion = waterPump;
+  pgQuestions = plumberGeneral;
   selectedQuestion: Array<any> = [];
   candidateData!: ICandidate;
 
@@ -134,8 +136,14 @@ export class AssessmentPageComponent {
   }
 
   createQuestion() {
-    while (this.randomQuestionIds.length < 25) {
-      let temp = Math.floor(Math.random() * (waterPump.length - 1 + 1) + 1);
+    let ques!: any;
+    if(this.candidateData.jobRole === "Plumber General"){
+      ques = plumberGeneral
+    } else {
+      ques = waterPump
+    }
+    while (this.randomQuestionIds.length < 40) {
+      let temp = Math.floor(Math.random() * (ques.length - 1 + 1) + 1);
       let res = this.randomQuestionIds.findIndex((x) => x === temp);
       if (res === -1) {
         this.randomQuestionIds.push(temp);
