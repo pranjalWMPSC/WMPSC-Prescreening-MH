@@ -143,7 +143,7 @@ export class AssessmentPageComponent {
       numberOfQuestion = 42;
     } else {
       ques = waterPump
-      numberOfQuestion = 22;
+      numberOfQuestion = 29;
     }
     while (this.randomQuestionIds.length < numberOfQuestion) {
       let temp = Math.floor(Math.random() * (ques.length - 1 + 1) + 1);
