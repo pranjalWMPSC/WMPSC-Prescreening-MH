@@ -137,12 +137,15 @@ export class AssessmentPageComponent {
 
   createQuestion() {
     let ques!: any;
+    let numberOfQuestion!: number;
     if(this.candidateData.jobRole === "Plumber General"){
       ques = plumberGeneral
+      numberOfQuestion = 42;
     } else {
       ques = waterPump
+      numberOfQuestion = 22;
     }
-    while (this.randomQuestionIds.length < 40) {
+    while (this.randomQuestionIds.length < numberOfQuestion) {
       let temp = Math.floor(Math.random() * (ques.length - 1 + 1) + 1);
       let res = this.randomQuestionIds.findIndex((x) => x === temp);
       if (res === -1) {
@@ -152,10 +155,21 @@ export class AssessmentPageComponent {
     console.log(this.randomQuestionIds);
 
     this.randomQuestionIds.forEach((element) => {
-      let temp = this.waterPumpQuestion.find((x) => x.questionNo === element);
+      let temp;
+      if(this.candidateData.jobRole === "Plumber General"){
+        temp = this.pgQuestions.find((x) => x.questionNo === element);
+      } else {
+        temp = this.waterPumpQuestion.find((x) => x.questionNo === element);
+      }
+      // let temp = this.waterPumpQuestion.find((x) => x.questionNo === element);
       let dataMap = {
         questionId: temp?.questionNo,
         question: temp?.Question,
+        mQuestion: temp?.marathiQuestion,
+        moptionA: temp?.marathi_option_a,
+        moptionB: temp?.marathi_option_b,
+        moptionC: temp?.marathi_option_c,
+        moptionD: temp?.marathi_option_d,
         optionA: temp?.option_a,
         optionB: temp?.option_b,
         optionC: temp?.option_c,

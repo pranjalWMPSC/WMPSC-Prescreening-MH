@@ -70,6 +70,10 @@
             },
             "development": {
               "buildTarget": "wmpsc-preScreening:build:development"
+            },
+            "options": {
+              "liveReload": true,
+              "watch": true
             }
           },
           "defaultConfiguration": "development"

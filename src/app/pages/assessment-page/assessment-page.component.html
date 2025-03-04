@@ -12,12 +12,12 @@
 
     <div class="form-group">
       <label for="">No. Of Questions : </label>
-      <label for="">10</label>
+      <label for="">15</label>
     </div>
 
     <div class="form-group">
       <label for="">Duration Of Assessment : </label>
-      <label for="">5 min</label>
+      <label for="">10 min</label>
     </div>
 
     <div class="form-group">
@@ -58,7 +58,7 @@
   <span *ngFor="let question of selectedQuestion ; let i = index">
     <div class="card" [ngStyle]="i+1 === currentQuestion ? {'display': 'block'} : {'display': 'none'}">
       <div class="form-group-row">
-        {{question.question}}
+        {{question.question}} [{{question.mQuestion}}]
       </div>
 
       <!-- <div *ngIf = "question.image != ''" class="queImage">
@@ -68,14 +68,14 @@
 
       <div class="form-group">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1"
             (click)="answerMarking(question.questionId, question.optionA, 'A')">
-          <label class="form-check-label" for="inlineRadio3">{{question.optionA}}</label>
+          <label class="form-check-label" for="inlineRadio3">{{question.optionA}} [{{question.moptionA}}]</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2"
             (click)="answerMarking(question.questionId, question.optionB, 'B')">
-          <label class="form-check-label" for="inlineRadio3">{{question.optionB}}</label>
+          <label class="form-check-label" for="inlineRadio3">{{question.optionB}} [{{question.moptionB}}]</label>
         </div>
       </div>
 
@@ -83,12 +83,12 @@
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"
             (click)="answerMarking(question.questionId, question.optionC, 'C')">
-          <label class="form-check-label" for="inlineRadio3">{{question.optionC}}</label>
+          <label class="form-check-label" for="inlineRadio3">{{question.optionC}}  [{{question.moptionC}}]</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"
             (click)="answerMarking(question.questionId, question.optionD, 'D')">
-          <label class="form-check-label" for="inlineRadio3">{{question.optionD}}</label>
+          <label class="form-check-label" for="inlineRadio3">{{question.optionD}}  [{{question.moptionD}}]</label>
         </div>
       </div>
 

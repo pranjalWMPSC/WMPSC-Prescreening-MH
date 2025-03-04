@@ -51,5 +51,5 @@ export const routes: Routes = [
       ),
     pathMatch: 'full'
   },
-  { path: '**', redirectTo: '/candidateList', pathMatch: 'full' },
+  { path: '**', redirectTo: '/assessment', pathMatch: 'full' },
 ];
